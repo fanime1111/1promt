@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="80 лет Победы - Беларусь помнит">
+    <meta name="theme-color" content="#FFFFFF">
+    <title data-page="liberation">80 лет Победы | Беларусь 2025</title>
+    
+    <!-- Стили -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <style>
+        .liberation-hero {
+            position: relative;
+            min-height: 400px;
+            background: linear-gradient(135deg, rgba(206,23,32,0.9), rgba(0,124,48,0.9));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+        .liberation-hero-content {
+            max-width: 800px;
+        }
+        .liberation-numbers {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .liberation-number {
+            text-align: center;
+        }
+        .liberation-number-value {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent-secondary);
+        }
+        .liberation-number-label {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+        }
+        .timeline-liberation {
+            position: relative;
+            padding: 3rem 0;
+        }
+        .timeline-liberation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--accent-secondary);
+        }
+        .timeline-event {
+            position: relative;
+            padding: 2rem 0;
+            width: 50%;
+        }
+        .timeline-event:nth-child(odd) {
+            left: 0;
+            padding-right: 3rem;
+            text-align: right;
+        }
+        .timeline-event:nth-child(even) {
+            left: 50%;
+            padding-left: 3rem;
+        }
+        .timeline-event-marker {
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-secondary);
+            border: 3px solid var(--bg-primary);
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+        .timeline-event:nth-child(odd) .timeline-event-marker {
+            right: -10px;
+        }
+        .timeline-event:nth-child(even) .timeline-event-marker {
+            left: -10px;
+        }
+        .timeline-event-emoji {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .heroes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .hero-card {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: all var(--transition-normal);
+        }
+        .hero-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        .hero-card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .memory-gallery {
+            margin: 2rem 0;
+        }
+        .gallery-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background: var(--bg-secondary);
+            border: 2px solid transparent;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        .filter-btn.active {
+            border-color: var(--accent-secondary);
+            background: var(--accent-secondary);
+            color: white;
+        }
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .memory-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+            height: 150px;
+            cursor: pointer;
+        }
+        .memory-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-normal);
+        }
+        .memory-item:hover img {
+            transform: scale(1.1);
+        }
+        @media (max-width: 768px) {
+            .timeline-liberation::before {
+                left: 30px;
+            }
+            .timeline-event {
+                width: 100%;
+                left: 0 !important;
+                padding-left: 60px !important;
+                padding-right: 1rem !important;
+                text-align: left !important;
+            }
+            .timeline-event-marker {
+                left: 20px !important;
+                right: auto !important;
+            }
+            .liberation-numbers {
+                gap: 2rem;
+            }
+            .liberation-number-value {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Хедер -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span data-i18n="site.title">Беларусь 2025</span>
+            </a>
+            
+            <nav class="nav">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link" data-i18n="nav.home">Главная</a></li>
+                    <li><a href="about.html" class="nav-link" data-i18n="nav.about">О сайте</a></li>
+                    <li><a href="projects.html" class="nav-link" data-i18n="nav.projects">Проекты</a></li>
+                    <li><a href="news.html" class="nav-link" data-i18n="nav.news">Новости</a></li>
+                    <li><a href="gallery.html" class="nav-link" data-i18n="nav.gallery">Галерея</a></li>
+                    <li><a href="awards.html" class="nav-link" data-i18n="nav.awards">Достижения</a></li>
+                    <li><a href="liberation80.html" class="nav-link active" data-i18n="nav.liberation">80 лет победы</a></li>
+                    <li><a href="timeline.html" class="nav-link" data-i18n="nav.timeline">Лента времени</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-controls">
+                <div class="lang-switcher">
+                    <button class="lang-btn active" data-lang="ru">RU</button>
+                    <button class="lang-btn" data-lang="by">BY</button>
+                </div>
+                <button class="theme-toggle" aria-label="Переключить тему">🌙</button>
+                <button class="btn btn-secondary" id="loginBtn" onclick="auth.showLoginModal()" data-i18n="btn.login">Вход</button>
+                <button class="btn btn-secondary" id="registerBtn" onclick="auth.showRegisterModal()" data-i18n="btn.register">Регистрация</button>
+                <span id="userInfo" style="display:none;"></span>
+                <button class="btn" id="logoutBtn" style="display:none;" onclick="auth.logout()" data-i18n="btn.logout">Выход</button>
+                <button class="burger-menu" aria-label="Меню">
+                    <span class="burger-line"></span>
+                    <span class="burger-line"></span>
+                    <span class="burger-line"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Мобильное меню -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-content">
+            <ul class="mobile-nav-links">
+                <li><a href="index.html" class="mobile-nav-link" data-i18n="nav.home">Главная</a></li>
+                <li><a href="about.html" class="mobile-nav-link" data-i18n="nav.about">О сайте</a></li>
+                <li><a href="projects.html" class="mobile-nav-link" data-i18n="nav.projects">Проекты</a></li>
+                <li><a href="news.html" class="mobile-nav-link" data-i18n="nav.news">Новости</a></li>
+                <li><a href="gallery.html" class="mobile-nav-link" data-i18n="nav.gallery">Галерея</a></li>
+                <li><a href="awards.html" class="mobile-nav-link" data-i18n="nav.awards">Достижения</a></li>
+                <li><a href="liberation80.html" class="mobile-nav-link" data-i18n="nav.liberation">80 лет победы</a></li>
+                <li><a href="timeline.html" class="mobile-nav-link" data-i18n="nav.timeline">Лента времени</a></li>
+            </ul>
+            <div class="mobile-controls mt-3">
+                <button class="btn btn-secondary" onclick="auth.showLoginModal()" data-i18n="btn.login">Вход</button>
+                <button class="btn btn-secondary" onclick="auth.showRegisterModal()" data-i18n="btn.register">Регистрация</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Основной контент -->
+    <main class="main-content">
+        <!-- Герой секция -->
+        <section class="liberation-hero">
+            <div class="liberation-hero-content">
+                <h1 class="hero-title" data-i18n="liberation.subtitle">1945 - 2025</h1>
+                <h2 data-i18n="liberation.title">80 лет Победы</h2>
+                <p data-i18n="liberation.text">80 лет Победы — символ мужества, стойкости и единства белорусского народа в борьбе за свободу и независимость.</p>
+                
+                <div class="liberation-numbers">
+                    <div class="liberation-number">
+                        <div class="liberation-number-value">80</div>
+                        <div class="liberation-number-label" data-i18n="liberation.years">лет Победы</div>
+                    </div>
+                    <div class="liberation-number">
+                        <div class="liberation-number-value">1945</div>
+                        <div class="liberation-number-label" data-i18n="liberation.year">год Победы</div>
+                    </div>
+                    <div class="liberation-number">
+                        <div class="liberation-number-value">9</div>
+                        <div class="liberation-number-label" data-i18n="liberation.may">мая</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Хронология -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title" data-i18n="liberation.timeline.title">Хронология освобождения</h2>
+                
+                <div class="timeline-liberation">
+                    <div class="timeline-event" data-animate="fadeInLeft">
+                        <div class="timeline-event-marker"></div>
+                        <div class="timeline-event-emoji">⚔️</div>
+                        <h3>22 июня 1941</h3>
+                        <p data-i18n="liberation.timeline.1941">Начало Великой Отечественной войны</p>
+                    </div>
+                    
+                    <div class="timeline-event" data-animate="fadeInRight">
+                        <div class="timeline-event-marker"></div>
+                        <div class="timeline-event-emoji">🎯</div>
+                        <h3>23 июня 1944</h3>
+                        <p data-i18n="liberation.timeline.1944june">Начало операции «Багратион»</p>
+                    </div>
+                    
+                    <div class="timeline-event" data-animate="fadeInLeft">
+                        <div class="timeline-event-marker"></div>
+                        <div class="timeline-event-emoji">🏙️</div>
+                        <h3>3 июля 1944</h3>
+                        <p data-i18n="liberation.timeline.1944july">Освобождение Минска</p>
+                    </div>
+                    
+                    <div class="timeline-event" data-animate="fadeInRight">
+                        <div class="timeline-event-marker"></div>
+                        <div class="timeline-event-emoji">🎉</div>
+                        <h3>9 мая 1945</h3>
+                        <p data-i18n="liberation.timeline.1945">День Победы</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Герои освобождения -->
+        <section class="section" style="background-color: var(--bg-secondary);">
+            <div class="container">
+                <h2 class="section-title" data-i18n="liberation.heroes.title">Герои освобождения</h2>
+                
+                <div class="heroes-grid">
+                    <div class="hero-card" data-animate="fadeInUp">
+                        <div class="hero-card-icon">👨‍✈️</div>
+                        <h3 data-i18n="liberation.heroes.soldiers">Советские солдаты</h3>
+                        <p data-i18n="liberation.heroes.soldiers.text">Мужество и героизм советских воинов стали решающим фактором в освобождении Беларуси</p>
+                    </div>
+                    
+                    <div class="hero-card" data-animate="fadeInUp">
+                        <div class="hero-card-icon">🌲</div>
+                        <h3 data-i18n="liberation.heroes.partisans">Партизаны</h3>
+                        <p data-i18n="liberation.heroes.partisans.text">Партизанское движение в Беларуси было одним из самых массовых в Европе</p>
+                    </div>
+                    
+                    <div class="hero-card" data-animate="fadeInUp">
+                        <div class="hero-card-icon">👨‍👩‍👧‍👦</div>
+                        <h3 data-i18n="liberation.heroes.civilians">Мирные жители</h3>
+                        <p data-i18n="liberation.heroes.civilians.text">Несмотря на тяжелейшие условия оккупации, белорусы сохранили веру в победу</p>
+                    </div>
+                    
+                    <div class="hero-card" data-animate="fadeInUp">
+                        <div class="hero-card-icon">🤝</div>
+                        <h3 data-i18n="liberation.heroes.unity">Единство народа</h3>
+                        <p data-i18n="liberation.heroes.unity.text">Только вместе, плечом к плечу, мы смогли победить фашизм</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Галерея памяти -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title" data-i18n="liberation.gallery.title">Галерея памяти</h2>
+                
+                <div class="memory-gallery">
+                    <div class="gallery-filters">
+                        <button class="filter-btn active" onclick="filterGallery('all')" data-i18n="liberation.gallery.all">Все фото</button>
+                        <button class="filter-btn" onclick="filterGallery('celebration')" data-i18n="liberation.gallery.celebration">Празднование</button>
+                        <button class="filter-btn" onclick="filterGallery('memorials')" data-i18n="liberation.gallery.memorials">Мемориалы</button>
+                        <button class="filter-btn" onclick="filterGallery('historical')" data-i18n="liberation.gallery.historical">Исторические кадры</button>
+                    </div>
+                    
+                    <div class="memory-grid" id="memoryGrid">
+                        <div class="memory-item" data-category="celebration">
+                            <img src="img-liberation80/happy-1.webp" alt="Празднование">
+                        </div>
+                        <div class="memory-item" data-category="celebration">
+                            <img src="img-liberation80/happy-2.webp" alt="Празднование">
+                        </div>
+                        <div class="memory-item" data-category="memorials">
+                            <img src="img-liberation80/happy-3.webp" alt="Мемориал">
+                        </div>
+                        <div class="memory-item" data-category="historical">
+                            <img src="img-liberation80/happy-4.webp" alt="Исторические кадры">
+                        </div>
+                        <div class="memory-item" data-category="celebration">
+                            <img src="img-liberation80/happy-5.webp" alt="Празднование">
+                        </div>
+                        <div class="memory-item" data-category="memorials">
+                            <img src="img-liberation80/happy-6.webp" alt="Мемориал">
+                        </div>
+                        <div class="memory-item" data-category="historical">
+                            <img src="img-liberation80/happy-7.webp" alt="Исторические кадры">
+                        </div>
+                        <div class="memory-item" data-category="celebration">
+                            <img src="img-liberation80/happy-8.webp" alt="Празднование">
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-3">
+                        <button class="btn" onclick="loadMorePhotos()" data-i18n="liberation.gallery.more">Показать ещё фотографии</button>
+                    </div>
+                </div>
+                
+                <!-- Ссылка на интерактивную ленту времени -->
+                <div class="text-center mt-3">
+                    <a href="timeline.html" class="btn btn-secondary">
+                        <span data-i18n="nav.timeline">Интерактивная лента времени</span> →
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p data-i18n="footer.copyright">© 2025 Беларусь 2025 - Благоустройство. Все права защищены.</p>
+                <div class="footer-links mt-2">
+                    <a href="#" data-i18n="footer.contacts">Контакты</a> |
+                    <a href="#" data-i18n="footer.privacy">Политика конфиденциальности</a> |
+                    <a href="#" data-i18n="footer.terms">Условия использования</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Скрипты -->
+    <script src="js/i18n.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/main.js"></script>
+    
+    <script>
+        // Фильтрация галереи
+        function filterGallery(category) {
+            const items = document.querySelectorAll('.memory-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Обновляем активную кнопку
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.onclick.toString().includes(category)) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Фильтруем элементы
+            items.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+        
+        // Загрузка дополнительных фотографий
+        function loadMorePhotos() {
+            const grid = document.getElementById('memoryGrid');
+            const categories = ['celebration', 'memorials', 'historical'];
+            
+            // Добавляем еще 6 фотографий
+            for (let i = 0; i < 6; i++) {
+                const item = document.createElement('div');
+                item.className = 'memory-item';
+                item.dataset.category = categories[i % 3];
+                
+                const img = document.createElement('img');
+                img.src = `img-liberation80/happy-${9 + i}.webp`;
+                img.alt = 'Память';
+                img.onerror = function() {
+                    this.src = `img-liberation80/happy-${(i % 8) + 1}.webp`;
+                };
+                
+                item.appendChild(img);
+                grid.appendChild(item);
+            }
+        }
+        
+        // Открытие изображений в лайтбоксе
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.memory-item')) {
+                const img = e.target.closest('.memory-item').querySelector('img');
+                if (img && app && app.openLightbox) {
+                    app.openLightbox(img.src, img.alt);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

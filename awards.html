@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Достижения программы Беларусь 2025">
+    <meta name="theme-color" content="#FFFFFF">
+    <title data-page="awards">Достижения | Беларусь 2025</title>
+    
+    <!-- Стили -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <style>
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+        .award-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+        .award-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+        .award-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .award-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 1rem;
+            font-weight: bold;
+        }
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .lightbox.active {
+            display: flex;
+        }
+        .lightbox-content {
+            background: var(--bg-primary);
+            border-radius: 8px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-primary);
+            z-index: 1;
+        }
+        .lightbox-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px 8px 0 0;
+        }
+        .lightbox-body {
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Хедер -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span data-i18n="site.title">Беларусь 2025</span>
+            </a>
+            
+            <nav class="nav">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link" data-i18n="nav.home">Главная</a></li>
+                    <li><a href="about.html" class="nav-link" data-i18n="nav.about">О сайте</a></li>
+                    <li><a href="projects.html" class="nav-link" data-i18n="nav.projects">Проекты</a></li>
+                    <li><a href="news.html" class="nav-link" data-i18n="nav.news">Новости</a></li>
+                    <li><a href="gallery.html" class="nav-link" data-i18n="nav.gallery">Галерея</a></li>
+                    <li><a href="awards.html" class="nav-link active" data-i18n="nav.awards">Достижения</a></li>
+                    <li><a href="liberation80.html" class="nav-link" data-i18n="nav.liberation">80 лет победы</a></li>
+                    <li><a href="timeline.html" class="nav-link" data-i18n="nav.timeline">Лента времени</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-controls">
+                <div class="lang-switcher">
+                    <button class="lang-btn active" data-lang="ru">RU</button>
+                    <button class="lang-btn" data-lang="by">BY</button>
+                </div>
+                <button class="theme-toggle" aria-label="Переключить тему">🌙</button>
+                <button class="btn btn-secondary" id="loginBtn" onclick="auth.showLoginModal()" data-i18n="btn.login">Вход</button>
+                <button class="btn btn-secondary" id="registerBtn" onclick="auth.showRegisterModal()" data-i18n="btn.register">Регистрация</button>
+                <span id="userInfo" style="display:none;"></span>
+                <button class="btn" id="logoutBtn" style="display:none;" onclick="auth.logout()" data-i18n="btn.logout">Выход</button>
+                <button class="burger-menu" aria-label="Меню">
+                    <span class="burger-line"></span>
+                    <span class="burger-line"></span>
+                    <span class="burger-line"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Мобильное меню -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-content">
+            <ul class="mobile-nav-links">
+                <li><a href="index.html" class="mobile-nav-link" data-i18n="nav.home">Главная</a></li>
+                <li><a href="about.html" class="mobile-nav-link" data-i18n="nav.about">О сайте</a></li>
+                <li><a href="projects.html" class="mobile-nav-link" data-i18n="nav.projects">Проекты</a></li>
+                <li><a href="news.html" class="mobile-nav-link" data-i18n="nav.news">Новости</a></li>
+                <li><a href="gallery.html" class="mobile-nav-link" data-i18n="nav.gallery">Галерея</a></li>
+                <li><a href="awards.html" class="mobile-nav-link" data-i18n="nav.awards">Достижения</a></li>
+                <li><a href="liberation80.html" class="mobile-nav-link" data-i18n="nav.liberation">80 лет победы</a></li>
+                <li><a href="timeline.html" class="mobile-nav-link" data-i18n="nav.timeline">Лента времени</a></li>
+            </ul>
+            <div class="mobile-controls mt-3">
+                <button class="btn btn-secondary" onclick="auth.showLoginModal()" data-i18n="btn.login">Вход</button>
+                <button class="btn btn-secondary" onclick="auth.showRegisterModal()" data-i18n="btn.register">Регистрация</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Основной контент -->
+    <main class="main-content">
+        <section class="section">
+            <div class="container">
+                <h1 class="section-title" data-i18n="awards.title">Наши достижения</h1>
+                
+                <!-- Сетка достижений -->
+                <div class="awards-grid">
+                    <!-- Достижение 1 -->
+                    <div class="award-card" data-animate="fadeInUp" onclick="openAwardModal(1)">
+                        <img src="img-awards/awards-1.png" alt="Лучший проект года" class="award-image">
+                        <div class="award-title">Лучший проект года 2024</div>
+                    </div>
+
+                    <!-- Достижение 2 -->
+                    <div class="award-card" data-animate="fadeInUp" onclick="openAwardModal(2)">
+                        <img src="img-awards/awards-2.jpg" alt="Экологическая премия" class="award-image">
+                        <div class="award-title">Экологическая премия</div>
+                    </div>
+
+                    <!-- Достижение 3 -->
+                    <div class="award-card" data-animate="fadeInUp" onclick="openAwardModal(3)">
+                        <img src="img-awards/awards-3.jpg" alt="Народное признание" class="award-image">
+                        <div class="award-title">Народное признание</div>
+                    </div>
+
+                    <!-- Достижение 4 -->
+                    <div class="award-card" data-animate="fadeInUp" onclick="openAwardModal(4)">
+                        <img src="img-awards/awards-4.jpg" alt="Инновации в строительстве" class="award-image">
+                        <div class="award-title">Инновации в строительстве</div>
+                    </div>
+
+                    <!-- Достижение 5 -->
+                    <div class="award-card" data-animate="fadeInUp" onclick="openAwardModal(5)">
+                        <img src="img-awards/awards-5.jpg" alt="Социальный проект" class="award-image">
+                        <div class="award-title">Лучший социальный проект</div>
+                    </div>
+
+                    <!-- Достижение 6 -->
+                    <div class="award-card" data-animate="fadeInUp" onclick="openAwardModal(6)">
+                        <img src="img-awards/awards-6.jpg" alt="Умный город" class="award-image">
+                        <div class="award-title">Премия "Умный город"</div>
+                    </div>
+
+                    <!-- Достижение 7 -->
+                    <div class="award-card" data-animate="fadeInUp" onclick="openAwardModal(7)">
+                        <img src="img-awards/awards-7.jpg" alt="Архитектурное решение" class="award-image">
+                        <div class="award-title">Лучшее архитектурное решение</div>
+                    </div>
+
+                    <!-- Достижение 8 -->
+                    <div class="award-card" data-animate="fadeInUp" onclick="openAwardModal(8)">
+                        <img src="img-awards/awards-8.jpg" alt="Зеленые технологии" class="award-image">
+                        <div class="award-title">Зеленые технологии</div>
+                    </div>
+
+                    <!-- Достижение 9 -->
+                    <div class="award-card" data-animate="fadeInUp" onclick="openAwardModal(9)">
+                        <img src="img-awards/awards-9.jpg" alt="Международное признание" class="award-image">
+                        <div class="award-title">Международное признание</div>
+                    </div>
+
+                    <!-- Достижение 10 -->
+                    <div class="award-card" data-animate="fadeInUp" onclick="openAwardModal(10)">
+                        <img src="img-awards/awards-10.jpg" alt="Выбор граждан" class="award-image">
+                        <div class="award-title">Выбор граждан 2024</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p data-i18n="footer.copyright">© 2025 Беларусь 2025 - Благоустройство. Все права защищены.</p>
+                <div class="footer-links mt-2">
+                    <a href="#" data-i18n="footer.contacts">Контакты</a> |
+                    <a href="#" data-i18n="footer.privacy">Политика конфиденциальности</a> |
+                    <a href="#" data-i18n="footer.terms">Условия использования</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Скрипты -->
+    <script src="js/i18n.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/main.js"></script>
+    
+    <script>
+        // Данные о достижениях
+        const awardsData = {
+            1: {
+                title: "Лучший проект года 2024",
+                image: "img-awards/awards-1.png",
+                description: "Программа «Беларусь 2025 — Благоустройство» признана лучшим проектом года в области городского развития. Награда присуждена за комплексный подход к улучшению городской среды и инновационные решения."
+            },
+            2: {
+                title: "Экологическая премия",
+                image: "img-awards/awards-2.jpg",
+                description: "За вклад в сохранение окружающей среды и создание зеленых зон в городах. Программа позволила увеличить площадь парков и скверов на 30%."
+            },
+            3: {
+                title: "Народное признание",
+                image: "img-awards/awards-3.jpg",
+                description: "По результатам общественного голосования программа получила наивысшую оценку граждан. Более 90% жителей отметили улучшение качества жизни."
+            },
+            4: {
+                title: "Инновации в строительстве",
+                image: "img-awards/awards-4.jpg",
+                description: "Премия за внедрение современных технологий в строительство и использование экологически чистых материалов."
+            },
+            5: {
+                title: "Лучший социальный проект",
+                image: "img-awards/awards-5.jpg",
+                description: "Награда за создание доступной среды для людей с ограниченными возможностями и развитие социальной инфраструктуры."
+            },
+            6: {
+                title: "Премия 'Умный город'",
+                image: "img-awards/awards-6.jpg",
+                description: "За успешную реализацию концепции умного города с внедрением цифровых технологий в управление городской инфраструктурой."
+            },
+            7: {
+                title: "Лучшее архитектурное решение",
+                image: "img-awards/awards-7.jpg",
+                description: "Награда Союза архитекторов за гармоничное сочетание современной архитектуры с историческим наследием."
+            },
+            8: {
+                title: "Зеленые технологии",
+                image: "img-awards/awards-8.jpg",
+                description: "Премия за использование возобновляемых источников энергии и энергосберегающих технологий в городском хозяйстве."
+            },
+            9: {
+                title: "Международное признание",
+                image: "img-awards/awards-9.jpg",
+                description: "Программа отмечена международными экспертами ООН как образец устойчивого городского развития."
+            },
+            10: {
+                title: "Выбор граждан 2024",
+                image: "img-awards/awards-10.jpg",
+                description: "Ежегодная премия по итогам голосования жителей страны. Программа благоустройства набрала рекордное количество голосов."
+            }
+        };
+
+        function openAwardModal(id) {
+            const award = awardsData[id];
+            if (!award) return;
+
+            const lightbox = document.createElement('div');
+            lightbox.className = 'lightbox active';
+            lightbox.innerHTML = `
+                <div class="lightbox-content">
+                    <button class="lightbox-close" onclick="this.closest('.lightbox').remove()">&times;</button>
+                    <img src="${award.image}" alt="${award.title}" class="lightbox-image">
+                    <div class="lightbox-body">
+                        <h2>${award.title}</h2>
+                        <p>${award.description}</p>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(lightbox);
+
+            // Закрытие по клику вне модального окна
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    lightbox.remove();
+                }
+            });
+
+            // Закрытие по Esc
+            const escHandler = (e) => {
+                if (e.key === 'Escape') {
+                    lightbox.remove();
+                    document.removeEventListener('keydown', escHandler);
+                }
+            };
+            document.addEventListener('keydown', escHandler);
+        }
+    </script>
+</body>
+</html>

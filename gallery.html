@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Галерея проектов Беларусь 2025">
+    <meta name="theme-color" content="#FFFFFF">
+    <title data-page="gallery">Галерея | Беларусь 2025</title>
+    
+    <!-- Стили -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <style>
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+        .gallery-info {
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Хедер -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span data-i18n="site.title">Беларусь 2025</span>
+            </a>
+            
+            <nav class="nav">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link" data-i18n="nav.home">Главная</a></li>
+                    <li><a href="about.html" class="nav-link" data-i18n="nav.about">О сайте</a></li>
+                    <li><a href="projects.html" class="nav-link" data-i18n="nav.projects">Проекты</a></li>
+                    <li><a href="news.html" class="nav-link" data-i18n="nav.news">Новости</a></li>
+                    <li><a href="gallery.html" class="nav-link active" data-i18n="nav.gallery">Галерея</a></li>
+                    <li><a href="awards.html" class="nav-link" data-i18n="nav.awards">Достижения</a></li>
+                    <li><a href="liberation80.html" class="nav-link" data-i18n="nav.liberation">80 лет победы</a></li>
+                    <li><a href="timeline.html" class="nav-link" data-i18n="nav.timeline">Лента времени</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-controls">
+                <div class="lang-switcher">
+                    <button class="lang-btn active" data-lang="ru">RU</button>
+                    <button class="lang-btn" data-lang="by">BY</button>
+                </div>
+                <button class="theme-toggle" aria-label="Переключить тему">🌙</button>
+                <button class="btn btn-secondary" id="loginBtn" onclick="auth.showLoginModal()" data-i18n="btn.login">Вход</button>
+                <button class="btn btn-secondary" id="registerBtn" onclick="auth.showRegisterModal()" data-i18n="btn.register">Регистрация</button>
+                <span id="userInfo" style="display:none;"></span>
+                <button class="btn" id="logoutBtn" style="display:none;" onclick="auth.logout()" data-i18n="btn.logout">Выход</button>
+                <button class="burger-menu" aria-label="Меню">
+                    <span class="burger-line"></span>
+                    <span class="burger-line"></span>
+                    <span class="burger-line"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Мобильное меню -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-content">
+            <ul class="mobile-nav-links">
+                <li><a href="index.html" class="mobile-nav-link" data-i18n="nav.home">Главная</a></li>
+                <li><a href="about.html" class="mobile-nav-link" data-i18n="nav.about">О сайте</a></li>
+                <li><a href="projects.html" class="mobile-nav-link" data-i18n="nav.projects">Проекты</a></li>
+                <li><a href="news.html" class="mobile-nav-link" data-i18n="nav.news">Новости</a></li>
+                <li><a href="gallery.html" class="mobile-nav-link" data-i18n="nav.gallery">Галерея</a></li>
+                <li><a href="awards.html" class="mobile-nav-link" data-i18n="nav.awards">Достижения</a></li>
+                <li><a href="liberation80.html" class="mobile-nav-link" data-i18n="nav.liberation">80 лет победы</a></li>
+                <li><a href="timeline.html" class="mobile-nav-link" data-i18n="nav.timeline">Лента времени</a></li>
+            </ul>
+            <div class="mobile-controls mt-3">
+                <button class="btn btn-secondary" onclick="auth.showLoginModal()" data-i18n="btn.login">Вход</button>
+                <button class="btn btn-secondary" onclick="auth.showRegisterModal()" data-i18n="btn.register">Регистрация</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Основной контент -->
+    <main class="main-content">
+        <section class="section">
+            <div class="container">
+                <h1 class="section-title" data-i18n="gallery.title">Галерея проектов</h1>
+                
+                <div class="gallery-info">
+                    <p class="hide-mobile" data-i18n="gallery.card.hover">Наведите для информации</p>
+                    <p class="show-mobile hidden" data-i18n="gallery.card.tap">Нажмите для информации</p>
+                </div>
+
+                <!-- Галерея с flip-карточками -->
+                <div class="gallery-grid">
+                    <!-- Карточка 1 -->
+                    <div class="flip-card" data-animate="fadeInUp">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="img-gallery/gallery-1.webp" alt="Проект 1" class="flip-card-image">
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Парк Победы</h3>
+                                <p>Новый парк площадью 20 га с мемориальным комплексом и зонами отдыха</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Карточка 2 -->
+                    <div class="flip-card" data-animate="fadeInUp">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="img-gallery/gallery-2.webp" alt="Проект 2" class="flip-card-image">
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Детская площадка</h3>
+                                <p>Современная игровая зона с безопасным покрытием и развивающими элементами</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Карточка 3 -->
+                    <div class="flip-card" data-animate="fadeInUp">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="img-gallery/gallery-3.webp" alt="Проект 3" class="flip-card-image">
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Велодорожки</h3>
+                                <p>Сеть велосипедных дорожек протяженностью 50 км по всему городу</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Карточка 4 -->
+                    <div class="flip-card" data-animate="fadeInUp">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="img-gallery/gallery-4.webp" alt="Проект 4" class="flip-card-image">
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Набережная</h3>
+                                <p>Благоустроенная набережная с прогулочными зонами и смотровыми площадками</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Карточка 5 -->
+                    <div class="flip-card" data-animate="fadeInUp">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="img-gallery/gallery-5.webp" alt="Проект 5" class="flip-card-image">
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Спортивный комплекс</h3>
+                                <p>Многофункциональный спортивный центр с бассейном и тренажерными залами</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Карточка 6 -->
+                    <div class="flip-card" data-animate="fadeInUp">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="img-gallery/gallery-6.webp" alt="Проект 6" class="flip-card-image">
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Культурный центр</h3>
+                                <p>Современный культурный центр с концертным залом и выставочными площадями</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Карточка 7 -->
+                    <div class="flip-card" data-animate="fadeInUp">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="img-gallery/gallery-7.webp" alt="Проект 7" class="flip-card-image">
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Экопарк</h3>
+                                <p>Экологический парк с образовательными маршрутами и зонами для наблюдения за природой</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Карточка 8 -->
+                    <div class="flip-card" data-animate="fadeInUp">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="img-gallery/gallery-8.webp" alt="Проект 8" class="flip-card-image">
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Умная остановка</h3>
+                                <p>Остановки общественного транспорта с Wi-Fi, USB-зарядками и информационными табло</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Карточка 9 -->
+                    <div class="flip-card" data-animate="fadeInUp">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="img-gallery/gallery-9.webp" alt="Проект 9" class="flip-card-image">
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Фонтанный комплекс</h3>
+                                <p>Музыкальные фонтаны с вечерней подсветкой в центре города</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Карточка 10 -->
+                    <div class="flip-card" data-animate="fadeInUp">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="img-gallery/gallery-10.webp" alt="Проект 10" class="flip-card-image">
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Пешеходная зона</h3>
+                                <p>Пешеходная улица с магазинами, кафе и зонами отдыха</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Карточка 11 -->
+                    <div class="flip-card" data-animate="fadeInUp">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="img-gallery/gallery-11.webp" alt="Проект 11" class="flip-card-image">
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Детский сад</h3>
+                                <p>Современный детский сад на 200 мест с игровыми площадками</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Карточка 12 -->
+                    <div class="flip-card" data-animate="fadeInUp">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="img-gallery/gallery-12.webp" alt="Проект 12" class="flip-card-image">
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Медицинский центр</h3>
+                                <p>Многопрофильный медицинский центр с современным оборудованием</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Карточка 13 -->
+                    <div class="flip-card" data-animate="fadeInUp">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="img-gallery/gallery-13.webp" alt="Проект 13" class="flip-card-image">
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Библиотека</h3>
+                                <p>Современная библиотека с коворкингом и мультимедийными залами</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Карточка 14 -->
+                    <div class="flip-card" data-animate="fadeInUp">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="img-gallery/gallery-14.webp" alt="Проект 14" class="flip-card-image">
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Транспортная развязка</h3>
+                                <p>Новая транспортная развязка для разгрузки центральных улиц</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Карточка 15 -->
+                    <div class="flip-card" data-animate="fadeInUp">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="img-gallery/gallery-15.webp" alt="Проект 15" class="flip-card-image">
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Арт-пространство</h3>
+                                <p>Творческое пространство для художников и проведения выставок</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Карточка 16 -->
+                    <div class="flip-card" data-animate="fadeInUp">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="img-gallery/gallery-16.webp" alt="Проект 16" class="flip-card-image">
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Ботанический сад</h3>
+                                <p>Обновленный ботанический сад с редкими видами растений</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Карточка 17 -->
+                    <div class="flip-card" data-animate="fadeInUp">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="img-gallery/gallery-17.jpg" alt="Проект 17" class="flip-card-image">
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Смотровая площадка</h3>
+                                <p>Панорамная смотровая площадка с видом на исторический центр города</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p data-i18n="footer.copyright">© 2025 Беларусь 2025 - Благоустройство. Все права защищены.</p>
+                <div class="footer-links mt-2">
+                    <a href="#" data-i18n="footer.contacts">Контакты</a> |
+                    <a href="#" data-i18n="footer.privacy">Политика конфиденциальности</a> |
+                    <a href="#" data-i18n="footer.terms">Условия использования</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Скрипты -->
+    <script src="js/i18n.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
